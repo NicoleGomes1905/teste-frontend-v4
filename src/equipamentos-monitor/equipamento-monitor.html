@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Monitoramento de Equipamentos</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+  <div id="app" class="container py-4">
+    <h1 class="mb-4">Monitoramento de equipamentos</h1>
+
+    <div id="map" class="mb-4"></div>
+
+    <div class="search-bar-container mb-3">
+      <h2 class="mb-0 text-white">Status dos Equipamentos</h2>
+      <input
+        type="text"
+        class="form-control"
+        id="search-input"
+        v-model="searchTerm"
+        placeholder="Pesquisar Nome..."
+      />
+    </div>
+    <div class="d-flex align-items-center mb-3 flex-wrap">
+      <label for="sortField" class="me-2">Ordenar por:</label>
+      <select
+        id="sortField"
+        v-model="sortField"
+        class="form-select me-3 mb-2"
+        style="max-width: 170px;"
+      >
+        <option value="">Sem Ordenação</option>
+        <option value="status">Status</option>
+        <option value="hourlyValue">Valor/Hora</option>
+      </select>
+  
+      <label for="sortOrder" class="me-2">Direção:</label>
+      <select
+        id="sortOrder"
+        v-model="sortOrder"
+        class="form-select mb-2"
+        style="max-width: 150px;"
+      >
+        <option value="asc">Crescente</option>
+        <option value="desc">Descrescente</option>
+      </select>
+    </div>
+    <div class="table-scroll-container mb-4">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Modelo</th>
+            <th>Status</th>
+            <th>Valor/Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="equip in sortedEquipments"
+            :key="equip.equipmentId"
+          >
+            <td>
+              <a href="#" @click.prevent="openHistoryModal(equip.equipmentId)">
+                {{ equip.equipmentId }}
+              </a>
+            </td>
+            <td>{{ equip.equipmentName }}</td>
+            <td>{{ equip.modelName }}</td>
+            <td>
+              <span class="badge" :style="{ backgroundColor: equip.color }">
+                {{ equip.statusName }}
+              </span>
+            </td>
+            <td>R$ {{ equip.hourlyValue }},00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      class="modal fade"
+      id="equipmentModal"
+      tabindex="-1"
+      aria-labelledby="equipmentModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          
+          <div class="modal-header">
+            <h5 class="modal-title" id="equipmentModalLabel">
+              Histórico do Equipamento - 
+              <span v-if="selectedEquipmentName">{{ selectedEquipmentName }}</span>
+            </h5>
+            <button 
+              type="button" 
+              class="btn-close" 
+              data-bs-dismiss="modal" 
+              aria-label="Close"
+            ></button>
+          </div>
+          
+          <div class="modal-body">
+            <h5>Data, Localização e Status</h5>
+            <table class="table table-sm table-striped">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Localização (Endereço)</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(info, idx) in combinedModalData" :key="idx">
+                  <td>{{ formatDate(info.date) }}</td>
+                  <td>
+                    <span v-if="info.address">{{ info.address }}</span>
+                    <span v-else>
+                      <button 
+                        class="btn btn-sm btn-primary"
+                        @click="fetchAddress(info)"
+                      >
+                        Ver Endereço
+                      </button>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="badge" 
+                          :style="{ backgroundColor: getStateColor(info.equipmentStateId) }">
+                      {{ getStateName(info.equipmentStateId) }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="modal-footer">
+            <button 
+              type="button" 
+              class="btn btn-secondary" 
+              data-bs-dismiss="modal"
+            >
+              Fechar
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"> </script>
+  <script src="assets/js/equipamento-monitor.js"></script>
+</body>
+</html>

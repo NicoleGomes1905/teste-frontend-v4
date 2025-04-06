@@ -1,0 +1,138 @@
+/* Paleta (baseada na imagem aiko) */
+:root {
+  --aiko-navy: #003c8f;
+  --aiko-green: #00b230;
+}
+
+#map {
+  height: 400px;
+}
+
+.table-scroll-container {
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: var(--aiko-navy);
+  margin-bottom: 1rem;
+}
+
+h2 {
+  color: var(--aiko-navy);
+}
+
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  background-color: var(--aiko-navy); /* Fundo azul */
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.search-bar-container h2 {
+  color: #fff;
+  margin: 0;
+  padding-right: 1rem;
+}
+
+#search-input {
+  margin-left: auto;   
+  max-width: 250px;
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+  padding: 0.3rem 0.5rem;
+}
+
+#search-input:focus {
+  outline: 2px solid var(--aiko-green);
+}
+
+.table-scroll-container {
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.table thead tr {
+  background-color: var(--aiko-navy);
+  color: #fff;
+}
+.table th {
+  white-space: nowrap; 
+}
+.table td {
+  vertical-align: middle;
+}
+
+.table a {
+  color: var(--aiko-navy);
+  text-decoration: none;
+}
+.table a:hover {
+  text-decoration: underline;
+}
+
+.badge {
+  color: #fff;
+  font-weight: normal;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.badge-operando {
+  background-color: var(--aiko-green);
+}
+.badge-parado {
+  background-color: #f1c40f;
+  color: #333;
+}
+.badge-manutencao {
+  background-color: #e74c3c;
+}
+
+.btn-primary {
+  background-color: var(--aiko-green);
+  border-color: var(--aiko-green);
+}
+.btn-primary:hover {
+  background-color: #00a326;
+}
+
+.modal-header {
+  background-color: var(--aiko-navy);
+  color: #fff;
+  border-bottom: none;
+}
+.modal-title {
+  margin: 0;
+}
+.modal-content {
+  border-radius: 5px;
+  overflow: hidden;
+}
+.modal-footer {
+  border-top: none;
+}
+
+.table-scroll-container::-webkit-scrollbar {
+  width: 8px;
+}
+.table-scroll-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
