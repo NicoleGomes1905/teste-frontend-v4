@@ -59,6 +59,8 @@ A aplicação carrega localmente os arquivos de dados em JSON (disponíveis na p
    - Ou use extensões como “Live Server” no VSCode.
 3. A aplicação deve carregar o mapa, a lista de equipamentos e permitir que você clique e abra o modal de histórico.
 
+Link do Google Drive: https://drive.google.com/drive/folders/1pfCoh2hXEG9DuZi0SQ3AvqyhPHETp7k8?usp=sharing
+
 Autor: Nicole Gabriele Gomes – Qualquer dúvida ou sugestão, fique à vontade para comentar!
 
 Obrigado por avaliar o projeto!
